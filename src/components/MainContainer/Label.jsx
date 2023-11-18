@@ -4,14 +4,16 @@ const labels = ['High Temperature', 'Low Temperature', 'Humidity', 'Sunrise Time
 
 const Label = () => {
   return (
-    <div className="min-w-[200px] mx-3">
-      <h1 className="opacity-0">Date</h1>
+    <div className="min-w-[160px] mx-3">
+      <h1 className="opacity-0 cursor-default text-center font-bold text-2xl">
+        Date
+      </h1>
       <div className=" h-[300px] w-full  rounded-lg">
-        <div className="flex flex-col justify-end w-full  h-1/4">
+        <div className="flex flex-col items-start justify-end w-full h-1/4">
           <span className="text-slate-700 ">Select Date:</span>
           <input
             type="date"
-            className="mb-0 p-1 py-2 rounded-md border-[1px] border-black"
+            className="mb-0 ml-0 py-2 px-1 w-full rounded border-[1px] border-gray-400"
           />
         </div>
         <div className="flex flex-col justify-between h-3/4">
