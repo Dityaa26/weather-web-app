@@ -1,6 +1,38 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useState, useContext } from "react";
+import { WeatherContext } from "../../context/WeatherContext";
+import useWeatherData from '../../hooks/useWeatherData';
 
 const Search = () => {
+  const [searchInput, setSearchInput] = useState("");
+  const [weather, setWeather] = useContext(WeatherContext);
+  const [newCity, setNewCity] = useState()
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${newCity}&units=Metric&cnt=5&appid=${
+            import.meta.env.VITE_API_KEY
+          }`
+        );
+        const data = await response.json();
+        setWeather(data);
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    // fetchData()
+  }, [newCity])
+
+ const handleSearch = (e) => {
+  e.preventDefault();
+  if(!searchInput) return;
+  setNewCity(setSearchInput)
+ }
+
+ if(!weather) return;
+
   return (
     <div className="flex flex-col-reverse mx-4 pb-1 mt-8 sm:flex-row sm:w-10/12 sm:mx-auto sm:items-center justify-between border-b-[1px] border-gray-400">
       <div>
@@ -9,17 +41,19 @@ const Search = () => {
             src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/external-location-ui-anggara-basic-outline-anggara-putra.png"
             alt="external-location-ui-anggara-basic-outline-anggara-putra"
           />
-          Mahasamund
+          {weather?.city?.name}
         </h1>
-        <p className='text-slate-700'>longitude N & latitude E</p>
+        <p className="text-slate-700">{`${weather?.city?.coord?.lat} N & ${weather?.city?.coord?.lon} E`}</p>
       </div>
       <div className="w-10/12 sm:w-4/12 sm:mx-0 mx-auto flex items-center h-10 bg-white px-2 rounded-lg shadow-md sm:mb-3 mb-5">
         <input
           type="text"
           className="w-full outline-none placeholder:italic"
           placeholder="Search your city here..."
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
         />
-        <button>
+        <button onClick={handleSearch}>
           <img
             width="40"
             height="40"

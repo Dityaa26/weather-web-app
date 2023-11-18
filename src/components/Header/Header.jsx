@@ -1,6 +1,5 @@
-import React from 'react'
-
 const Header = () => {
+
   return (
     <div className="w-full top-0 bg-slate-600 py-2 text-white flex pl-5 items-center justify-between md:px-32">
       <h1 className="font-bold text-white text-2xl">Weather 99</h1>

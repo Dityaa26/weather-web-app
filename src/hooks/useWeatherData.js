@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useWeather = (name) => {
+const useWeatherData = (name = 'mumbai') => {
     const [weather, setWeather] = useState();
 
     useEffect(() => {
@@ -29,4 +29,4 @@ const useWeather = (name) => {
     return weather
 }
 
-export default useWeather;
+export default useWeatherData;

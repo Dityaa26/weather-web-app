@@ -1,4 +1,3 @@
-import useWeather from './hooks/useWeather'
 import Header from './components/Header/Header'
 import Search from './components/Search/Search';
 import MainContainer from './components/MainContainer/MainContainer';
