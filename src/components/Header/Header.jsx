@@ -11,7 +11,7 @@ const Header = () => {
           src="https://img.icons8.com/ios-filled/100/FFFFFF/reboot.png"
           alt="reboot"
         />
-        <p className="text-xs sm:text-lg sm:ml-2">Refresh</p>
+        <button type='submit' onClick={() => location.reload()} className="text-xs sm:text-lg sm:ml-2">Refresh</button>
       </div>
     </div>
   );
