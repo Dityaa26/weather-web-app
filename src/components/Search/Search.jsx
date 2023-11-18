@@ -1,35 +1,43 @@
 import React, { useEffect } from 'react'
 import { useState, useContext } from "react";
-import { WeatherContext } from "../../context/WeatherContext";
 import useWeatherData from '../../hooks/useWeatherData';
+import { CityContext } from '../../context/CityContext';
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
-  const [weather, setWeather] = useContext(WeatherContext);
-  const [newCity, setNewCity] = useState()
-
+  const [weather, setWeather] = useState(useWeatherData());
+  const [city, setCity] = useContext(CityContext)
+  let data = useWeatherData()
+  useEffect(() => {
+    setWeather(data)
+  },[data])
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${newCity}&units=Metric&cnt=5&appid=${
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&cnt=5&appid=${
             import.meta.env.VITE_API_KEY
           }`
         );
-        const data = await response.json();
-        setWeather(data);
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    // fetchData()
-  }, [newCity])
+        // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=Metric&appid=${import.meta.env.VITE_API_KEY}`)
+        data = await response.json();
 
- const handleSearch = (e) => {
-  e.preventDefault();
-  if(!searchInput) return;
-  setNewCity(setSearchInput)
- }
+        setWeather(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
+  }, [city])
+
+  const handleSearch = (e) => {
+    e.preventDefault()
+    if(!searchInput) return
+    setCity(searchInput)
+  setSearchInput('')
+  }
 
  if(!weather) return;
 

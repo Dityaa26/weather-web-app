@@ -1,26 +1,47 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Card from './Card'
 import Label from './Label';
-import { WeatherContext } from '../../context/WeatherContext';
 import useWeatherData from '../../hooks/useWeatherData';
+import { CityContext } from '../../context/CityContext';
 
 const MainContainer = () => {
-  const [weather, setWeather] = useContext(WeatherContext);
-  const data = useWeatherData();
 
+  const [weather, setWeather] = useState(useWeatherData());
+  const [city, setCity] = useContext(CityContext);
+  let data = useWeatherData();
   useEffect(() => {
     setWeather(data);
   }, [data]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&cnt=5&appid=${
+            import.meta.env.VITE_API_KEY
+          }`
+        );
+        // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=Metric&appid=${import.meta.env.VITE_API_KEY}`)
+        data = await response.json();
+
+        setWeather(data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+
+    fetchData();
+  }, [city]);
   
 
-  if (!weather) return;
-  console.log("weather from MainContainer===>", weather);
+  if (!weather) return; 
+
   
   return (
     <div className="min-h-screen flex sm:w-10/12 mx-auto mt-14 relative">
       <Label />
       <div className="overflow-x-scroll flex no-scrollbar">
-        {weather.list.map((day) => (
+        {weather?.list?.map((day) => (
           <Card
             key={day?.dt}
             date={day.dt_txt}
