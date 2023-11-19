@@ -16,7 +16,7 @@ const Search = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&cnt=5&appid=${
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city || 'mumbai'}&units=Metric&cnt=5&appid=${
             import.meta.env.VITE_API_KEY
           }`
         );
@@ -40,6 +40,7 @@ const Search = () => {
   }
 
  if(!weather) return;
+ console.log('search==>', weather)
 
   return (
     <div className="flex flex-col-reverse mx-4 pb-1 mt-8 sm:flex-row sm:w-10/12 sm:mx-auto sm:items-center justify-between border-b-[1px] border-gray-400">
@@ -49,7 +50,7 @@ const Search = () => {
             src="https://img.icons8.com/external-anggara-basic-outline-anggara-putra/24/external-location-ui-anggara-basic-outline-anggara-putra.png"
             alt="external-location-ui-anggara-basic-outline-anggara-putra"
           />
-          {weather?.city?.name}
+          {`${weather?.city?.name || 'Not Found'}, ${weather?.city?.country || ''}`}
         </h1>
         <p className="text-slate-700">{`${weather?.city?.coord?.lat} N & ${weather?.city?.coord?.lon} E`}</p>
       </div>

@@ -17,9 +17,9 @@ const MainContainer = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&units=Metric&cnt=5&appid=${
-            import.meta.env.VITE_API_KEY
-          }`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${
+            city || "mumbai"
+          }&units=Metric&cnt=5&appid=${import.meta.env.VITE_API_KEY}`
         );
         // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=Metric&appid=${import.meta.env.VITE_API_KEY}`)
         data = await response.json();
@@ -50,7 +50,7 @@ const MainContainer = () => {
             humidity={day?.main?.humidity}
             sunrise={weather?.city?.sunrise}
             sunset={weather?.city?.sunset}
-            description={day?.weather[0]?.main}
+            weather={day?.weather[0]?.main}
           />
         ))}
       </div>
