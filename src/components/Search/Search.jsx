@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useState, useContext } from "react";
 import useWeatherData from '../../hooks/useWeatherData';
 import { CityContext } from '../../context/CityContext';
+import Shimmer from './Shimmer';
 
 const Search = () => {
   const [searchInput, setSearchInput] = useState("");
@@ -39,10 +40,10 @@ const Search = () => {
   setSearchInput('')
   }
 
- if(!weather) return;
- console.log('search==>', weather)
+//  if(!weather) return;
+//  console.log('search==>', weather)
 
-  return (
+  return (!weather? <Shimmer /> :
     <div className="flex flex-col-reverse mx-4 pb-1 mt-8 sm:flex-row sm:w-10/12 sm:mx-auto sm:items-center justify-between border-b-[1px] border-gray-400">
       <div>
         <h1 className="font-bold text-2xl sm:text-3xl flex items-center">

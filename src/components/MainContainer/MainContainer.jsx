@@ -3,6 +3,7 @@ import Card from './Card'
 import Label from './Label';
 import useWeatherData from '../../hooks/useWeatherData';
 import { CityContext } from '../../context/CityContext';
+import Shimmer from './Shimmer';
 
 const MainContainer = () => {
 
@@ -34,17 +35,18 @@ const MainContainer = () => {
   }, [city]);
   
 
-  if (!weather) return; 
+  // if (!weather) return; 
 
   
-  return (
+  return ( !weather ? <Shimmer /> :
     <div className="min-h-screen flex sm:w-10/12 mx-auto mt-14 relative">
       <Label />
       <div className="overflow-x-scroll flex no-scrollbar">
         {weather?.list?.map((day) => (
           <Card
             key={day?.dt}
-            date={day.dt_txt}
+            // date={day.dt_txt}
+            date={day?.dt}
             maxTemp={day?.main?.temp_max}
             minTemp={day?.main?.temp_min}
             humidity={day?.main?.humidity}
