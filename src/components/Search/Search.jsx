@@ -21,7 +21,6 @@ const Search = () => {
             import.meta.env.VITE_API_KEY
           }`
         );
-        // const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&units=Metric&appid=${import.meta.env.VITE_API_KEY}`)
         data = await response.json();
 
         setWeather(data);
@@ -40,8 +39,6 @@ const Search = () => {
   setSearchInput('')
   }
 
-//  if(!weather) return;
-//  console.log('search==>', weather)
 
   return (!weather? <Shimmer /> :
     <div className="flex flex-col-reverse mx-4 pb-1 mt-8 sm:flex-row sm:w-10/12 sm:mx-auto sm:items-center justify-between border-b-[1px] border-gray-400">
@@ -63,13 +60,13 @@ const Search = () => {
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
         />
-        <button onClick={handleSearch}>
+        <button onClick={handleSearch} className='outline-none'>
           <img
             width="40"
             height="40"
             src="https://img.icons8.com/fluency-systems-regular/48/search--v1.png"
             alt="search--v1"
-            className="p-1"
+            className="p-1 outline-none"
           />
         </button>
       </div>

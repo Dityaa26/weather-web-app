@@ -33,11 +33,8 @@ const MainContainer = () => {
 
     fetchData();
   }, [city]);
-  
 
-  // if (!weather) return; 
 
-  
   return ( !weather ? <Shimmer /> :
     <div className="min-h-screen flex sm:w-10/12 mx-auto mt-14 relative">
       <Label />
@@ -45,7 +42,6 @@ const MainContainer = () => {
         {weather?.list?.map((day) => (
           <Card
             key={day?.dt}
-            // date={day.dt_txt}
             date={day?.dt}
             maxTemp={day?.main?.temp_max}
             minTemp={day?.main?.temp_min}
